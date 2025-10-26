@@ -86,11 +86,60 @@ func TaskScheduler(tasks []Task) []TaskResult {
 	return taskResults
 }
 
+//面向对象
+//题目一：   定义一个 Shape 接口，包含 Area() 和 Perimeter() 两个方法。
+//然后创建 Rectangle 和 Circle 结构体，实现 Shape 接口。
+//在主函数中，创建这两个结构体的实例，并调用它们的 Area() 和 Perimeter() 方法。
+
+type Shape interface {
+	Area()      //面积
+	Perimeter() // 周长
+}
+
+// 长方形
+type Rectangle struct {
+	a int
+	b int
+}
+
+func (r Rectangle) Area() {
+	a := r.a * r.b
+	fmt.Println("Rectangle Area", a)
+}
+
+func (r Rectangle) Perimeter() {
+	a := r.a*2 + r.b*2
+	fmt.Println("Rectangle Perimeter", a)
+}
+
+// 圆形
+type Circle struct {
+	r float64
+}
+
+func (c Circle) Area() {
+	a := 3.14 * c.r * c.r
+	fmt.Println("Circle Area", a)
+}
+
+func (c Circle) Perimeter() {
+	a := 2 * 3.14 * c.r
+	fmt.Println("Circle Perimeter", a)
+}
+
 func main() {
 	//a := 1
 	//取变量a的内存地址的值，值传递
 	//fmt.Println(changeValue(&a))
 	//testSlice := []int{1, 2, 3, 4, 5}
 	//fmt.Println(changeValue2(&testSlice))
-	printNum()
+	//printNum()
+
+	r := Rectangle{1, 2}
+	r.Area()
+	r.Perimeter()
+
+	c := Circle{1}
+	c.Area()
+	c.Perimeter()
 }
