@@ -127,6 +127,36 @@ func (c Circle) Perimeter() {
 	fmt.Println("Circle Perimeter", a)
 }
 
+//题目 ：使用组合的方式创建一个 Person 结构体，包含 Name 和 Age 字段，再创建一个 Employee 结构体，
+//组合 Person 结构体并添加 EmployeeID 字段。为 Employee 结构体实现一个 PrintInfo() 方法，输出员工的信息。
+//考察点 ：组合的使用、方法接收者。
+
+type Person struct {
+	Name string
+	Age  int
+}
+
+type Employee struct {
+	EmployeeID int
+	Person     Person
+}
+
+func (m Employee) PrintInfo() {
+	id := m.EmployeeID
+	fmt.Println("id", id)
+	name := m.Person.Name
+	fmt.Println("name", name)
+	age := m.Person.Age
+	fmt.Println("age", age)
+}
+
+//todo ✅Channel
+//题目 ：编写一个程序，使用通道实现两个协程之间的通信。一个协程生成从1到10的整数，并将这些整数发送到通道中，另一个协程从通道中接收这些整数并打印出来。
+//考察点 ：通道的基本使用、协程间通信。
+
+//todo 题目 ：实现一个带有缓冲的通道，生产者协程向通道中发送100个整数，消费者协程从通道中接收这些整数并打印。
+//考察点 ：通道的缓冲机制。
+
 func main() {
 	//a := 1
 	//取变量a的内存地址的值，值传递
@@ -135,11 +165,18 @@ func main() {
 	//fmt.Println(changeValue2(&testSlice))
 	//printNum()
 
-	r := Rectangle{1, 2}
-	r.Area()
-	r.Perimeter()
+	//r := Rectangle{1, 2}
+	//r.Area()
+	//r.Perimeter()
+	//
+	//c := Circle{1}
+	//c.Area()
+	//c.Perimeter()
 
-	c := Circle{1}
-	c.Area()
-	c.Perimeter()
+	e := Employee{
+		EmployeeID: 1,
+		Person:     Person{"lwb", 3},
+	}
+
+	e.PrintInfo()
 }
