@@ -154,8 +154,62 @@ func (m Employee) PrintInfo() {
 //题目 ：编写一个程序，使用通道实现两个协程之间的通信。一个协程生成从1到10的整数，并将这些整数发送到通道中，另一个协程从通道中接收这些整数并打印出来。
 //考察点 ：通道的基本使用、协程间通信。
 
+func Communication() {
+	ch := make(chan int)
+	go func() {
+		defer close(ch)
+		for i := 0; i < 10; i++ {
+			ch <- i
+			fmt.Printf("发送: %d\n", i)
+		}
+
+		fmt.Println("发送完成")
+	}()
+
+	go func() {
+		for value := range ch {
+			fmt.Printf("接收: %d\n", value)
+			time.Sleep(500 * time.Millisecond)
+		}
+		fmt.Println("接收完成")
+	}()
+
+	time.Sleep(time.Second * 6)
+	fmt.Println("程序结束")
+}
+
 //todo 题目 ：实现一个带有缓冲的通道，生产者协程向通道中发送100个整数，消费者协程从通道中接收这些整数并打印。
 //考察点 ：通道的缓冲机制。
+
+func BufferChannelDemo() {
+	ch := make(chan int, 3)
+
+	go func() {
+		for i := 0; i < 20; i++ {
+			ch <- i
+			fmt.Printf("发送: %d\n", i)
+		}
+
+		close(ch)
+	}()
+
+	go func() {
+		for value := range ch {
+			fmt.Printf("接收: %d\n", value)
+			time.Sleep(500 * time.Millisecond)
+		}
+	}()
+
+	time.Sleep(time.Second * 20)
+	fmt.Println("程序结束")
+}
+
+//todo ✅锁机制
+//题目 ：编写一个程序，使用 sync.Mutex 来保护一个共享的计数器。启动10个协程，每个协程对计数器进行1000次递增操作，最后输出计数器的值。
+//考察点 ： sync.Mutex 的使用、并发数据安全。
+
+//todo 题目 ：使用原子操作（ sync/atomic 包）实现一个无锁的计数器。启动10个协程，每个协程对计数器进行1000次递增操作，最后输出计数器的值。
+//考察点 ：原子操作、并发数据安全。
 
 func main() {
 	//a := 1
@@ -173,10 +227,14 @@ func main() {
 	//c.Area()
 	//c.Perimeter()
 
-	e := Employee{
-		EmployeeID: 1,
-		Person:     Person{"lwb", 3},
-	}
+	//e := Employee{
+	//	EmployeeID: 1,
+	//	Person:     Person{"lwb", 3},
+	//}
+	//
+	//e.PrintInfo()
 
-	e.PrintInfo()
+	//Communication()
+
+	BufferChannelDemo()
 }
