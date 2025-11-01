@@ -87,5 +87,13 @@ func createSampleData() error {
 	if err := db.Create(&posts).Error; err != nil {
 		return fmt.Errorf("创建投递失败： %w", err)
 	}
+
+	comments := []model.Comment{
+		{Id: 1, Content: "what is up"}, {Id: 2, Content: "Ocean Sea"},
+	}
+
+	if err := db.Create(&comments).Error; err != nil {
+		return fmt.Errorf("创建评论失败： %w", err)
+	}
 	return nil
 }
