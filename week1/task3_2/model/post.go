@@ -5,3 +5,7 @@ type Post struct {
 	Title    string    `gorm:"size:100;not null" json:"title"`
 	Comments []Comment `gorm:"foreignKey:CommentId" json:"comments"`
 }
+
+func (p *Post) TableName() string {
+	return "post"
+}

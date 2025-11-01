@@ -4,3 +4,7 @@ type Comment struct {
 	Id      uint   `gorm:"primaryKey" json:"id"`
 	Content string `gorm:"size:100;not null" json:"content"`
 }
+
+func (c *Comment) TableName() string {
+	return "comments"
+}
