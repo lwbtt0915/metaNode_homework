@@ -1,4 +1,4 @@
-module gormboke
+module web3/week1/task3_2
 
 go 1.23.3
 

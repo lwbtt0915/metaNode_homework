@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"gormboke/database"
-	"gormboke/model"
 	"log"
 	"os"
 	"sync"
 	"time"
+	"web3/week1/task3_2/database"
+	"web3/week1/task3_2/models"
 )
 
 func main1() {
@@ -73,13 +73,13 @@ func main() {
 func createSampleData() error {
 	db := database.GetDB()
 
-	users := []model.User{{Id: 1, Name: "tim"}, {Id: 2, Name: "jeffry"}}
+	users := []models.User{{Id: 1, Name: "tim"}, {Id: 2, Name: "jeffry"}}
 
 	if err := db.Create(&users).Error; err != nil {
 		return fmt.Errorf("创建用户失败： %w", err)
 	}
 
-	posts := model.Post{
+	posts := models.Post{
 		AuthorID: uint(users[1].Id),
 		Title:    "经济",
 	}
@@ -88,7 +88,7 @@ func createSampleData() error {
 		return fmt.Errorf("创建投递失败： %w", err)
 	}
 
-	comments := []model.Comment{
+	comments := []models.Comment{
 		{Id: 1, Content: "what is up"}, {Id: 2, Content: "Ocean Sea"},
 	}
 

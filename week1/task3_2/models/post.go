@@ -1,4 +1,4 @@
-package model
+package models
 
 type Post struct {
 	AuthorID uint      `gorm:"primaryKey" json:"authorId"`

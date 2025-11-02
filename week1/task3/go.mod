@@ -1,4 +1,4 @@
-module dataDriver
+module web3/week1/task3
 
 go 1.23.3
 

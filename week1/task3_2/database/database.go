@@ -5,8 +5,8 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"gormboke/model"
 	"log"
+	"web3/week1/task3_2/models"
 )
 
 var DB *gorm.DB
@@ -55,9 +55,9 @@ func InitDB(cfg Config) error {
 
 func AutoMigrate() error {
 	return DB.AutoMigrate(
-		&model.User{},
-		&model.Post{},
-		&model.Comment{},
+		&models.User{},
+		&models.Post{},
+		&models.Comment{},
 	)
 }
 

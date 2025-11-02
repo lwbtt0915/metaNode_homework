@@ -1,4 +1,4 @@
-package model
+package models
 
 type User struct {
 	Id    int64  `gorm:"primaryKey" json:"id"`
