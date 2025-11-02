@@ -1,5 +1,6 @@
 package models
 
+// 用户
 type User struct {
 	Id    int64  `gorm:"primaryKey" json:"id"`
 	Name  string `gorm:"size:100;not null" json:"name"`
