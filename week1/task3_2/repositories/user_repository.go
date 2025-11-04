@@ -35,7 +35,7 @@ func (blog *BlogService) GetUserPostWithComments(userId uint) ([]PostWithComment
 func (blog *BlogService) GetMostCommentsPost() ([]models.Post, error) {
 	var post []models.Post
 
-	query := "SELECT\n\tp.*,\n\tCOUNT( c.id ) AS comment_count\nFROM\n\tposts p\n\tLEFT JOIN users u ON p.author_id = u.id \n\tLEFT JOIN comments c ON p.id = c.post_id \nWHERE\nGROUP BY\n\tp.id\nORDER BY\n\tcomment_count DESC"
+	query := "SELECT\n\tp.*,\n\tCOUNT( c.id ) AS comment_count\nFROM\n\tposts p\n\tLEFT JOIN users u ON p.author_id = u.id \n\tLEFT JOIN comments c ON p.id = c.post_id \nGROUP BY\n\tp.id\nORDER BY\n\tcomment_count DESC"
 
 	err := blog.db.Raw(query).Scan(&post).Error
 
