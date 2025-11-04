@@ -1,10 +1,10 @@
 package repositories
 
 import (
-	"dataDriver/database"
-	"dataDriver/models"
 	"fmt"
 	"github.com/jmoiron/sqlx"
+	"web3/week1/task3/database"
+	"web3/week1/task3/models"
 )
 
 type BookRepository interface {

@@ -1,10 +1,10 @@
 package database
 
 import (
-	"dataDriver/config"
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"log"
+	"web3/week1/task3/config"
 )
 
 var DB *sqlx.DB

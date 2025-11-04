@@ -1,10 +1,10 @@
 package main
 
 import (
-	"dataDriver/database"
-	"dataDriver/models"
-	"dataDriver/repositories"
 	"log"
+	"web3/week1/task3/database"
+	"web3/week1/task3/models"
+	"web3/week1/task3/repositories"
 )
 
 //题目1：使用SQL扩展库进行查询
