@@ -17,9 +17,9 @@ type DataBaseConfig struct {
 func LoadDataBaseConfig() *DataBaseConfig {
 	return &DataBaseConfig{Host: getEnv("DB_HOST", "localhost"),
 		Port:     getEnv("DB_PORT", "3306"),
-		User:     getEnv("DB_USER", "postgres"),
-		Password: getEnv("DB_PASSWORD", "password"),
-		DBName:   getEnv("DB_NAME", "mydb"),
+		User:     getEnv("DB_USER", "root"),
+		Password: getEnv("DB_PASSWORD", "12345678"),
+		DBName:   getEnv("DB_NAME", "web3"),
 		SSLMode:  getEnv("DB_SSLMODE", "disable")}
 }
 

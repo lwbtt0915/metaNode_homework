@@ -27,7 +27,7 @@ func main() {
 	if err != nil {
 		log.Printf("获取雇员最高薪水失败: %v", err)
 	} else {
-		log.Printf("用户: ID=%d, Name=%s, Sarlary=%s", employee.ID, employee.Name, employee.Salary)
+		log.Printf("用户: ID=%d, Name=%s, Sarlary=%d", employee.ID, employee.Name, employee.Salary)
 	}
 
 	param := &models.Employees{
@@ -41,7 +41,7 @@ func main() {
 	} else {
 		log.Printf("雇员总数: %d", len(ems))
 		for _, emp := range ems {
-			log.Printf("用户: ID=%d, Name=%s, Department=%s,Salary=%s", emp.ID, emp.Name, emp.Department, emp.Salary)
+			log.Printf("用户: ID=%d, Name=%s, Department=%s,Salary=%d", emp.ID, emp.Name, emp.Department, emp.Salary)
 		}
 	}
 

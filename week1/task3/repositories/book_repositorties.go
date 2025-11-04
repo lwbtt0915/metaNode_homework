@@ -23,7 +23,7 @@ func NewBookRepository() BookRepository {
 
 func (r *bookRepository) GetBookByPrice() ([]models.Book, error) {
 	//TODO implement me
-	query := `SELECT id, title, author, price FROM book where price > $1`
+	query := `SELECT id, title, author, price FROM books where price > ?`
 
 	var book []models.Book
 	err := r.db.Select(&book, query, 50)

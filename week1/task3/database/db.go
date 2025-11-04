@@ -1,19 +1,23 @@
 package database
 
 import (
+	_ "database/sql"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 	"log"
-	"web3/week1/task3/config"
 )
 
 var DB *sqlx.DB
 
 // InitDB 初始化数据库连接
 func InitDB() error {
-	cfg := config.LoadDataBaseConfig()
-	connStr := cfg.GetConnectionsString()
+	//cfg := config.LoadDataBaseConfig()
+	//connStr := cfg.GetConnectionsString()
 
+	connStr := "root:12345678@tcp(localhost:3306)/web3?charset=utf8mb4&parseTime=True&loc=Local"
+
+	//db, err := sql.Open("mysql", connStr)
 	db, err := sqlx.Connect("mysql", connStr)
 	if err != nil {
 		return fmt.Errorf("无法连接数据库: %w", err)
