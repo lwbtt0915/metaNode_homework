@@ -6,13 +6,13 @@ import (
 )
 
 type Post struct {
-	Id          int64     `gorm:"primaryKey" json:"id"`
-	Title       string    `gorm:"not null"`
-	Content     string    `gorm:"not null"`
-	UserID      uint      `gorm:"not null"`
-	CreatedAt   time.Time `gorm:"not null"`
-	UpdatedAt   time.Time `gorm:"not null"`
-	User        User
+	Id        int64     `gorm:"primaryKey;autoIncrement" json:"id"`
+	Title     string    `gorm:"not null"`
+	Content   string    `gorm:"not null"`
+	UserID    uint      `json:"user_id"`
+	CreatedAt time.Time `gorm:"not null"`
+	UpdatedAt time.Time `gorm:"not null"`
+	//User        User      `gorm:"foreignKey:UserID;references:ID" json:"user"`
 	IsPublished bool `gorm:"default:false"`
 }
 

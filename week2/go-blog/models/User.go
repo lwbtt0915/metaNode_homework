@@ -6,11 +6,11 @@ import (
 )
 
 type User struct {
-	Id       int64  `gorm:"primaryKey" json:"id"`
+	Id       int64  `gorm:"primaryKey;autoIncrement" json:"id"`
 	Username string `gorm:"unique;not null" json:"userName"`
 	Password string `gorm:"not null" json:"password"`
 	Email    string `gorm:"unique;not null" json:"email"`
-	Role     string `gorm:"unique;not null" json:"role"`
+	Role     string `gorm:"not null" json:"role"`
 	IsActive bool   `gorm:"default:true" json:"isActive"`
 }
 

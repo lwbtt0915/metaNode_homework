@@ -27,7 +27,7 @@ func GenerateToken(userID uint, username, role string) (string, error) {
 			ExpiresAt: jwt.NewNumericDate(expireTime),
 			IssuedAt:  jwt.NewNumericDate(now),
 			NotBefore: jwt.NewNumericDate(now),
-			Issuer:    "blog-system",
+			Issuer:    "go-blog",
 		},
 	}
 

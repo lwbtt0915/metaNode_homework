@@ -76,6 +76,7 @@ func Register(c *gin.Context) {
 	user := models.User{
 		Username: req.Username,
 		Email:    req.Email,
+		Role:     "manager",
 	}
 
 	// 加密密码
