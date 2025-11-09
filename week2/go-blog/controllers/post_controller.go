@@ -9,7 +9,6 @@ import (
 	"web3/week2/go-blog/utils"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 // GetPosts 获取文章列表
@@ -77,11 +76,6 @@ func GetPost(c *gin.Context) {
 		return
 	}
 
-	// 增加阅读数
-	if post.IsPublished {
-		database.DB.Model(&post).Update("view_count", gorm.Expr("view_count + ?", 1))
-	}
-
 	utils.SuccessResponse(c, http.StatusOK, "Post retrieved successfully", post)
 }
 
@@ -108,7 +102,7 @@ func CreatePost(c *gin.Context) {
 	}
 
 	// 重新加载关联数据
-	database.DB.Preload("User").Preload("Tags").Preload("Categories").First(&post, post.Id)
+	database.DB.First(&post, post.Id)
 
 	utils.SuccessResponse(c, http.StatusCreated, "Post created successfully", post)
 }
@@ -123,7 +117,7 @@ func UpdatePost(c *gin.Context) {
 	}
 
 	var post models.Post
-	result := database.DB.Preload("Tags").Preload("Categories").First(&post, id)
+	result := database.DB.First(&post, id)
 	if result.Error != nil {
 		utils.ErrorResponse(c, http.StatusNotFound, "Post not found")
 		return
@@ -157,7 +151,7 @@ func UpdatePost(c *gin.Context) {
 	}
 
 	// 重新加载数据
-	database.DB.Preload("User").Preload("Tags").Preload("Categories").First(&post, post.Id)
+	database.DB.First(&post, post.Id)
 
 	utils.SuccessResponse(c, http.StatusOK, "Post updated successfully", post)
 }
@@ -177,7 +171,7 @@ func GetMyPosts(c *gin.Context) {
 	var posts []models.Post
 	var total int64
 
-	query := database.DB.Where("user_id = ?", userID).Preload("Tags").Preload("Categories")
+	query := database.DB.Where("user_id = ?", userID)
 	query.Model(&models.Post{}).Count(&total)
 
 	result := query.Offset(offset).Limit(pagination.PageSize).
