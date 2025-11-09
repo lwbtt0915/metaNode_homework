@@ -33,7 +33,7 @@ func InitDB() {
 	DB = db
 
 	// 自动迁移
-	autoMigrate()
+	//autoMigrate()
 
 	log.Println("✅ 数据库连接成功!")
 }

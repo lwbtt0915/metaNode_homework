@@ -33,7 +33,7 @@ func GetPosts(c *gin.Context) {
 	var total int64
 
 	// 只查询已发布的文章
-	query := database.DB.Where("is_published = ?", true).Preload("User").Preload("Tags").Preload("Categories")
+	query := database.DB.Where("is_published = ?", true)
 
 	// 获取总数
 	query.Model(&models.Post{}).Count(&total)
@@ -70,11 +70,7 @@ func GetPost(c *gin.Context) {
 	}
 
 	var post models.Post
-	result := database.DB.Preload("User").Preload("Tags").Preload("Categories").
-		Preload("Comments", func(db *gorm.DB) *gorm.DB {
-			return db.Where("is_approved = ?", true).Preload("User").Order("created_at DESC")
-		}).
-		First(&post, id)
+	result := database.DB.First(&post, id)
 
 	if result.Error != nil {
 		utils.ErrorResponse(c, http.StatusNotFound, "Post not found")
