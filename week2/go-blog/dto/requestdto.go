@@ -29,8 +29,12 @@ type UpdatePostRequest struct {
 // CreateCommentRequest 创建评论请求
 type CreateCommentRequest struct {
 	Content  string `json:"content" binding:"required"`
-	PostID   uint   `json:"post_id" binding:"required"`
+	PostID   uint   `json:"postId" binding:"required"`
 	ParentId uint
+}
+
+type GetCommentsRequest struct {
+	PostID uint `json:"postId" binding:"required"`
 }
 
 // PaginationRequest 分页请求

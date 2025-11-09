@@ -195,3 +195,32 @@ func GetMyPosts(c *gin.Context) {
 		"pagination": paginationResponse,
 	})
 }
+
+// 删除post
+func DeletePost(c *gin.Context) {
+	userID, _ := c.Get("userID")
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		utils.ErrorResponse(c, http.StatusBadRequest, "Invalid post ID")
+		return
+	}
+
+	var post models.Post
+	query := database.DB.First(&post, 1)
+
+	if query.Error != nil {
+		utils.ErrorResponse(c, http.StatusNotFound, "Post not found")
+		return
+	}
+
+	if post.UserID == userID.(uint) {
+		var posta models.Post
+		result := database.DB.Delete(&posta, id)
+		if result.Error != nil {
+			utils.ErrorResponse(c, http.StatusNotFound, "Post not found")
+			return
+		}
+	}
+
+	utils.SuccessResponse(c, http.StatusOK, "Post deleted successfully", nil)
+}

@@ -63,3 +63,23 @@ func GetMyComments(c *gin.Context) {
 
 	utils.SuccessResponse(c, http.StatusOK, "Comments retrieved successfully", comments)
 }
+
+// 根据文章ID查询评论
+func GetCommentsByPostID(c *gin.Context) {
+	var req dto.GetCommentsRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		utils.ErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	var comments []models.Comments
+	result := database.DB.Where("post_id = ?", req.PostID).Preload("Post").Order("created_at DESC").
+		Find(&comments)
+
+	if result.Error != nil {
+		utils.ErrorResponse(c, http.StatusInternalServerError, "Failed to fetch comments")
+		return
+	}
+
+	utils.SuccessResponse(c, http.StatusOK, "Comments query successfully", comments)
+}

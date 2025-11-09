@@ -9,6 +9,6 @@ type Comments struct {
 	PostId    uint      `gorm:"not null"`
 	CreatedAt time.Time `gorm:"autoCreateTime" json:"createdAt"`
 	//User      User
-	//Post     Post
+	Post     Post
 	ParentID uint `gorm:"not null" json:"parentId"`
 }

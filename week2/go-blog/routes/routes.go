@@ -42,13 +42,15 @@ func SetupRouter() *gin.Engine {
 			posts.GET("/my-posts", controllers.GetMyPosts)
 			posts.GET("/posts", controllers.GetPosts)
 			posts.GET("/posts/:id", controllers.GetPost)
+			posts.DELETE("/:id", controllers.DeletePost)
 		}
 
 		// 评论管理
 		comments := authorized.Group("/comments")
 		{
-			comments.POST("", controllers.CreateComment)
+			comments.POST("created", controllers.CreateComment)
 			comments.GET("/my-comments", controllers.GetMyComments)
+			comments.GET("/byPostId", controllers.GetCommentsByPostID)
 		}
 
 		// 管理员路由
