@@ -1,18 +1,51 @@
 package database
 
 import (
+	"fmt"
+	"gopkg.in/yaml.v3"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"io/ioutil"
 	"log"
 	"web3/week2/go-blog/models"
 )
 
 var DB *gorm.DB
 
+type Config struct {
+	Database struct {
+		User     string `yaml:"user"`
+		Password string `yaml:"password"`
+		Host     string `yaml:"host"`
+		Port     int    `yaml:"port"`
+		DBName   string `yaml:"dbname"`
+	} `yaml:"database"`
+}
+
 // InitDB 初始化数据库连接
 func InitDB() {
-	dsn := "root:12345678@tcp(localhost:3306)/web3?charset=utf8mb4&parseTime=True&loc=Local"
+	configFile, err := ioutil.ReadFile("/Users/lwb/web3/week2/go-blog/config/env.yaml")
+	if err != nil {
+		log.Fatalf("Error reading config file: %v", err)
+	}
+
+	var config Config
+	err = yaml.Unmarshal(configFile, &config)
+
+	if err != nil {
+		log.Fatalf("Error unmarshalling config: %v", err)
+	}
+	//配置有问题
+	//dsn := config.Database.User + ":" + config.Database.Password +
+	//	"@tcp(" + config.Database.Host + ":" + string(rune(config.Database.Port)) + ")/" +
+	//	config.Database.DBName + "?charset=utf8mb4&parseTime=True&loc=Local"
+	//配置有问题
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+		config.Database.User, config.Database.Password, config.Database.Host, config.Database.Port, config.Database.DBName)
+	log.Println("数据库连接字符串:", dsn)
+	//dsn := root:12345678@tcp(localhost:3306)/web3?charset=utf8mb4&parseTime=True&loc=Local"
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
