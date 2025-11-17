@@ -13,27 +13,26 @@ contract BinarySearch {
      */
     function binarySearchUint(uint256[] calldata sortedArr,uint256 target) external pure returns (uint256) {
         uint256 arrLen = sortedArr.length;
-        if (arrLen == 0) return type(uint256).max; // 空数组直接返回未找到
+        if (arrLen == 0) return type(uint256).max;
 
         uint256 left = 0;
         uint256 right = arrLen - 1;
 
-        // 二分查找核心循环（左闭右闭区间）
         while (left <= right) {
             // 计算 mid：left + (right - left)/2 避免 (left+right) 溢出
             uint256 mid = left + (right - left) / 2;
             uint256 midValue = sortedArr[mid];
 
             if (midValue == target) {
-                return mid; // 找到目标，返回索引
+                return mid;
             } else if (midValue < target) {
-                left = mid + 1; // 目标在右半部分，收缩左边界
+                left = mid + 1;
             } else {
-                right = mid - 1; // 目标在左半部分，收缩右边界
+                right = mid - 1;
             }
         }
 
-        return type(uint256).max; // 循环结束未找到
+        return type(uint256).max;
     }
 
 }
