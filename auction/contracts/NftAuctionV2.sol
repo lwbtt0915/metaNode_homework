@@ -23,7 +23,7 @@ contract NftAuctionV2 is Initializable {
        uint256 tokenId;
     }
 
-    mapping(uint256 => Auction) auctions;
+    mapping(uint256 => Auction) public auctions;
 
     uint256 public nextAuctionId;
 
