@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	contractAddr = "<deployed contract address>"
+	contractAddr = "0x00267645F5677350F740da9C8586Ded87816D811"
 )
 
 func main() {
@@ -33,7 +33,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	opt, err := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(11155111))
+	opt, err := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(100000))
 	if err != nil {
 		log.Fatal(err)
 	}
