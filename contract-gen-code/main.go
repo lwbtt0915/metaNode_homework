@@ -28,16 +28,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	privateKey, err := crypto.HexToECDSA("<your private key>")
+	privateKey, err := crypto.HexToECDSA("f58221423788589ed88f53eab6ea7499c3a503eb9de42b8b89bf9ad98a3e8bbe")
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	var key [32]byte
-	var value [32]byte
-
-	copy(key[:], []byte("demo_save_key"))
-	copy(value[:], []byte("demo_save_value11111"))
 
 	opt, err := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(11155111))
 	if err != nil {
