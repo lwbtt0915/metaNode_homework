@@ -10,6 +10,7 @@ import (
 	confirm "github.com/gagliardetto/solana-go/rpc/sendAndConfirmTransaction"
 	"github.com/gagliardetto/solana-go/rpc/ws"
 	"github.com/gagliardetto/solana-go/text"
+	"math/big"
 	"os"
 	"time"
 )
@@ -40,7 +41,7 @@ func CreateAccount() {
 	//Create account (wallet) end
 }
 
-func main() {
+func Transfer() {
 
 	//Transfer Sol from one wallet to another wallet
 
@@ -129,4 +130,82 @@ func main() {
 	}
 	spew.Dump(sig)
 
+}
+
+// 获取最新区块
+func GetLatestBlockhash() {
+	endpoint := rpc.TestNet_RPC
+	client := rpc.New(endpoint)
+
+	example, err := client.GetLatestBlockhash(
+		context.Background(),
+		rpc.CommitmentFinalized,
+	)
+	if err != nil {
+		panic(err)
+	}
+	spew.Dump(example)
+	spew.Dump(example.Value)
+}
+
+// // 查询账户余额
+func GetBalance() {
+	endpoint := rpc.MainNetBeta_RPC
+	client := rpc.New(endpoint)
+
+	pubKey := solana.MustPublicKeyFromBase58("7xLk17EQQ5KLDLDe44wCmupJKJjTGd8hs3eSVVhCx932")
+	out, err := client.GetBalance(
+		context.TODO(),
+		pubKey,
+		rpc.CommitmentFinalized,
+	)
+	if err != nil {
+		panic(err)
+	}
+	spew.Dump(out)
+	spew.Dump(out.Value) // total lamports on the account; 1 sol = 1000000000 lamports
+
+	var lamportsOnAccount = new(big.Float).SetUint64(uint64(out.Value))
+	// Convert lamports to sol:
+	var solBalance = new(big.Float).Quo(lamportsOnAccount, new(big.Float).SetUint64(solana.LAMPORTS_PER_SOL))
+
+	// WARNING: this is not a precise conversion.
+	fmt.Println("◎", solBalance.Text('f', 10))
+}
+
+// 实时交易订阅
+func SignatureSubscribe() {
+	ctx := context.Background()
+	fmt.Println("url", rpc.TestNet_WS)
+	client, err := ws.Connect(context.Background(), rpc.TestNet_WS)
+	if err != nil {
+		panic(err)
+	}
+
+	txSig := solana.MustSignatureFromBase58("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+
+	sub, err := client.SignatureSubscribe(
+		txSig,
+		"",
+	)
+	if err != nil {
+		panic(err)
+	}
+	defer sub.Unsubscribe()
+
+	for {
+		got, err := sub.Recv(ctx)
+		if err != nil {
+			panic(err)
+		}
+		spew.Dump(got)
+	}
+}
+
+func main() {
+	//GetLatestBlockhash()
+	//GetBalance()
+	//CreateAccount()
+	//Transfer()
+	SignatureSubscribe()
 }
