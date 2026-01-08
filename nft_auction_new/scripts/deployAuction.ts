@@ -57,7 +57,7 @@ async function main() {
    * 3. 合约实例
    * ------------------------------------------------------------ */
   const Auction = await ethers.getContractAt(
-    "NFTAuctionMarketUUPS_V1",
+    "NFTAuctionByEnglishAuction",
     auctionAddress,
     seller
   );
