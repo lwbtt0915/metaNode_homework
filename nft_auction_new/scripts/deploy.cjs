@@ -13,7 +13,7 @@ async function main() {
   // 1. 部署 NFT 合约
   console.log("\n1. Deploying AuctionNFT contract...");
   const AuctionNFT = await hre.ethers.getContractFactory("MyNFT");
-  const nft = await AuctionNFT.deploy(deployer.address);
+  const nft = await AuctionNFT.deploy();
   await nft.waitForDeployment(); // 等待部署完成
   const nftAddress = await nft.getAddress();
   console.log("AuctionNFT deployed to:", nftAddress);
@@ -21,7 +21,7 @@ async function main() {
   // 2. 部署英式拍卖合约
   console.log("\n2. Deploying EnglishAuction contract...");
   const EnglishAuction = await hre.ethers.getContractFactory("NFTAuctionByEnglishAuction");
-  const englishAuction = await EnglishAuction.deploy(nftAddress);
+  const englishAuction = await EnglishAuction.deploy();
   await englishAuction.waitForDeployment();
   const englishAuctionAddress = await englishAuction.getAddress();
   console.log("EnglishAuction deployed to:", englishAuctionAddress);
@@ -31,7 +31,6 @@ async function main() {
   const config = {
     nft: nftAddress,
     englishAuction: englishAuctionAddress,
-    dutchAuction: dutchAuctionAddress,
     network: hre.network.name,
     timestamp: new Date().toISOString()
   };
@@ -43,7 +42,7 @@ async function main() {
   // 写入配置文件
   fs.writeFileSync(
     configFileName,
-    JSON.stringify(config, null, 2) // 美化输出，缩进2个空格
+    JSON.stringify(config, null, 2) 
   );
   
   console.log(`Config saved to ${configFileName}!`);
@@ -54,7 +53,6 @@ async function main() {
   console.log("Deployer:", deployer.address);
   console.log("NFT Contract:", nftAddress);
   console.log("English Auction:", englishAuctionAddress);
-  console.log("Dutch Auction:", dutchAuctionAddress);
   console.log("===========================\n");
 }
 
