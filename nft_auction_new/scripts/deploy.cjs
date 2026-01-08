@@ -12,7 +12,7 @@ async function main() {
 
   // 1. 部署 NFT 合约
   console.log("\n1. Deploying AuctionNFT contract...");
-  const AuctionNFT = await hre.ethers.getContractFactory("AuctionNFT");
+  const AuctionNFT = await hre.ethers.getContractFactory("MyNFT");
   const nft = await AuctionNFT.deploy(deployer.address);
   await nft.waitForDeployment(); // 等待部署完成
   const nftAddress = await nft.getAddress();
@@ -20,7 +20,7 @@ async function main() {
 
   // 2. 部署英式拍卖合约
   console.log("\n2. Deploying EnglishAuction contract...");
-  const EnglishAuction = await hre.ethers.getContractFactory("EnglishAuction");
+  const EnglishAuction = await hre.ethers.getContractFactory("NFTAuctionByEnglishAuction");
   const englishAuction = await EnglishAuction.deploy(nftAddress);
   await englishAuction.waitForDeployment();
   const englishAuctionAddress = await englishAuction.getAddress();

@@ -8,14 +8,14 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 
 
-contract AuctionNFT is ERC721,ERC721URIStorage,Ownable {
+contract MyNFT is ERC721,ERC721URIStorage,Ownable {
 
     //    // 下一个可用的tokenId
     uint256 private _nextTokenId;
 
 
    //构造函数，初始化NFT合约
-    constructor() ERC721("TestNFT", "MNFT") Ownable(msg.sender) {}
+    constructor() ERC721("MyNFT", "MNFT") Ownable(msg.sender) {}
 
 
 
