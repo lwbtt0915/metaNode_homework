@@ -17,8 +17,8 @@
 
 Indexer 持续扫描区块链，并订阅 NFT 拍卖合约的事件，包括：
 
-- AuctionCreated：创建拍卖
-- BidPlaced：出价
+- CreateAuction：创建拍卖
+- BidAuction：出价
 - AuctionEnded：拍卖结束
 - AuctionCancelled：拍卖取消
 
