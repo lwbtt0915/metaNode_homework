@@ -94,10 +94,10 @@ import "./interfaces/AggregatorV3Interface.sol";
 
 
      // @custom:oz-upgrades-unsafe-allow constructor
-    constructor() {
-        //// 关键：防止初始化函数被调用
-        _disableInitializers();
-    }
+    // constructor() {
+    //     //// 关键：防止初始化函数被调用
+    //     _disableInitializers();
+    // }
 
     //升级合约
     function initialize(
@@ -106,7 +106,7 @@ import "./interfaces/AggregatorV3Interface.sol";
         address _usdcUsdFeed,
         address _feeRecipient,
         uint256 _feeBps
-    ) public initializer {
+    ) external initializer {
       __Ownable_init(msg.sender); //初始化所有者
       __UUPSUpgradeable_init();  // 初始化UUPS升级逻辑
       __ReentrancyGuard_init(); // 初始化防重入保护
